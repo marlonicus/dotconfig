@@ -14,6 +14,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
+Plug 'mileszs/ack.vim'
 
 call plug#end()
 
@@ -36,3 +37,13 @@ autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\'
+
+" :DiffSaved command to diff between buffer and filesystem
+function! s:DiffWithSaved()
+	let filetype=&ft
+	diffthis
+	vnew | r # | normal! 1Gdd
+	diffthis
+	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
