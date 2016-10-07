@@ -32,6 +32,8 @@ set laststatus=2
 set autoread
 set autoindent
 set cindent
+set lazyredraw
+set ttyfast
 
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
