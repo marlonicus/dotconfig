@@ -23,17 +23,27 @@ colorscheme onedark
 
 map <C-n> :NERDTreeToggle<CR>
 
-set number
+set relativenumber
 set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸—
 set list
 set shiftwidth=2
 set tabstop=2
 set laststatus=2
-set autoread
-set autoindent
 set cindent
 set lazyredraw
 set ttyfast
+set autoindent
+set shell=/bin/bash
+set ignorecase
+
+set autoread
+au CursorHold * checktime
+
+set mouse=a
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
+
+imap jj <Esc>
 
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
@@ -49,3 +59,7 @@ function! s:DiffWithSaved()
 	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 com! DiffSaved call s:DiffWithSaved()
+
+" Remove trailing whitespace with F5
+:nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
